@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+	<title>NESNELERİN İNTERNETİ ÖRNEK</title>
+</head>
+
+<body>
+
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h3>NESNELERİN İNTERNETİ ÖRNEK</h3>
+				<br>
+
+			</div>
+			<div class="col-md-4 offset-md-4 text-center">
+
+				<button type="button" class="btn btn-primary " id="dgm1_ac">LED 1 AÇ</button>
+				<button type="button" class="btn btn-primary" id="dgm1_kapat">LED 1 KAPAT</button>
+
+
+			</div>
+			<div class="col-md-4 offset-md-4 ">
+				<br>
+			</div>
+			<div class="col-md-4 offset-md-4 text-center">
+				<button type="button" class="btn btn-primary " id="dgm2_ac">LED 2 AÇ</button>
+				<button type="button" class="btn btn-primary" id="dgm2_kapat">LED 2 KAPAT</button>
+			</div>
+			<div class="col-md-4 offset-md-4">
+				<br>
+			</div>
+			<div class="col-md-4 offset-md-4 text-center">
+				<button type="button" class="btn btn-primary " id="dgm3_ac">LED 3 AÇ</button>
+				<button type="button" class="btn btn-primary" id="dgm3_kapat">LED 3 KAPAT</button>
+			</div>
+			<div class="col-md-8 offset-md-2 text-center">
+				<br>
+				<div class="form-group">
+					<label for="formControlRange">SERVO MOTOR KONTROL</label>
+					<input type="range" class="form-control-range" id="servo" min="0" max="180">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
+
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAOcL8mN6r_XF2Vn7fL4iNxdLskP_nZk10",
+			authDomain: "nodemcu1-8058b.firebaseapp.com",
+			databaseURL: "https://nodemcu1-8058b-default-rtdb.firebaseio.com",
+			projectId: "nodemcu1-8058b",
+			storageBucket: "nodemcu1-8058b.appspot.com",
+			messagingSenderId: "880034493409",
+			appId: "1:880034493409:web:7668630f807dcfcdb618a0",
+			measurementId: "G-Z7JHD5KVD4"
+		};
+		firebase.initializeApp(config);
+	</script>
+
+
+	<script>
+
+
+
+
+		function dugme1_ac(durum) {
+			const db = firebase.database().ref('led/');
+			db.set({
+				status: durum
+			});
+		}
+		function dugme1_kapat(durum) {
+			const db = firebase.database().ref('led/');
+			db.set({
+				status: durum
+			});
+		}
+		function servo_ayarla(deger) {
+			firebase.database().ref('servo/').set({
+				value: deger
+			});
+		}
+		$("#servo").change(function () {
+			servo_ayarla($(this).val());
+		});
+		$("#dgm1_ac").click(function () {
+
+			dugme1_ac("ON");
+		});
+		$("#dgm1_kapat").click(function () {
+
+			dugme1_kapat("OFF");
+		});
+
+		function dugme2_ac(durum) {
+			const db = firebase.database().ref('led2/');
+			db.set({
+				status: durum
+			});
+		}
+		function dugme2_kapat(durum) {
+			const db = firebase.database().ref('led2/');
+			db.set({
+				status: durum
+			});
+		}
+
+
+		$("#dgm2_ac").click(function () {
+
+			dugme2_ac("ON");
+		});
+		$("#dgm2_kapat").click(function () {
+
+			dugme2_kapat("OFF");
+		});
+
+
+		function dugme3_ac(durum) {
+			const db = firebase.database().ref('led3/');
+			db.set({
+				status: durum
+			});
+		}
+		function dugme3_kapat(durum) {
+			const db = firebase.database().ref('led3/');
+			db.set({
+				status: durum
+			});
+		}
+
+
+		$("#dgm3_ac").click(function () {
+
+			dugme3_ac("ON");
+		});
+		$("#dgm3_kapat").click(function () {
+
+			dugme3_kapat("OFF");
+		});
+	</script>
+
+</body>
+
+</html>
