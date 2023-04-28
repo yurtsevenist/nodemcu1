@@ -1,25 +1,20 @@
+
 #include <FirebaseArduino.h>
 #include <SoftwareSerial.h>
 #include <ESP8266WiFi.h>
 
-#define FIREBASE_HOST "https://nodemcu1-8058b-default-rtdb.firebaseio.com/"
-#define FIREBASE_AUTH "AIzaSyAOcL8mN6r_XF2Vn7fL4iNxdLskP_nZk10"
-#define WIFI_SSID "my"
-#define WIFI_PASSWORD "mustafa2549"
+#define FIREBASE_HOST "iotornek-default-rtdb.firebaseio.com"
+#define FIREBASE_AUTH "AIzaSyDfpteqSZ1vhufOkvAzs4hHoecM6efqhh8"
+#define WIFI_SSID "fatih"
+#define WIFI_PASSWORD "!1qaz2WSX3edc4RFV%56"
 
 SoftwareSerial NodeMCU(D2);
 String ledstatus;
-int led1=12;
+int salon=12;
 void setup() {
   Serial.begin(9600);
   NodeMCU.begin(9600);
-  servo.attach(5);
-  servo.write(0);
-  pinMode(D2, INPUT);
-  pinMode(led1, OUTPUT);
-   pinMode(led2, OUTPUT);
-    pinMode(led3, OUTPUT);
-   
+   pinMode(salon, OUTPUT);   
   Serial.println();
   Serial.print("Wifi connecting to ");
   Serial.println(WIFI_SSID); 
@@ -32,8 +27,7 @@ void setup() {
   Serial.println();
   Serial.println("Wifi Connected Success!");
   Serial.print("NodeMCU IP Address : ");
-  Serial.println(WiFi.localIP() );
-  
+  Serial.println(WiFi.localIP() );  
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
   if (Firebase.failed()) {
   Serial.println(Firebase.error());
@@ -51,13 +45,13 @@ void firebasereconnect(){
  
 void loop() {
   Serial.print("Reading from firebase : ");
-ledstatus = Firebase.getString("/led/");
+ledstatus = Firebase.getString("/salon/");
  Serial.println(ledstatus);
  if(ledstatus=="ON"){
-  digitalWrite(led, HIGH);
+  digitalWrite(salon, HIGH);
  }
  else
  {
-digitalWrite(led, LOW);
+digitalWrite(salon, LOW);
  } 
 }
